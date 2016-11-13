@@ -1,0 +1,219 @@
+
+/* -------------------- */
+/* -- General Styles -- */
+/* -------------------- */
+#wrap{
+	width:100%;
+	margin:1% 0 0 5%;
+}
+body{
+	font-family:arial, sans-serif;
+	background-color:#fff;
+	color:#555;
+	line-height:24px;
+	font-size:14px;
+}
+h1{
+	font-size:38px;
+	margin:0 0 30px 0;
+}
+h2{
+	font-size:28px;
+	margin:40px 0 30px 0;
+}
+h3{
+	font-size:24px;
+	margin:40px 0 20px 0;
+}
+
+p{
+	margin:0 0 15px 0;
+}
+a{
+	text-decoration:none;
+	color:#2684cd;
+}
+a:hover{
+	color:#555;
+	cursor:pointer;
+}
+.home{
+	background:url(../images/home-bg.png) repeat-x;
+}
+.page{
+	background:url(../images/page-bg.png) repeat-x;
+}
+.hide{
+	display:none;
+}
+.title{
+	margin-top:0;
+}
+.post-line{
+	clear:both;
+	border-bottom:1px #ddd dotted;
+	margin:40px 0 45px 0;
+}
+.cache-images{
+	display:none
+}
+/* ------------ */
+/* -- Header -- */
+/* ------------ */
+#header{
+	height:160px;
+	padding-bottom: 10px 1px;
+}
+#header img, #header h1{
+	float:left;
+}
+#header h1{
+	font-size:30px;
+	margin:32px 0 0 5px;
+}
+/* --------- */
+/* -- Nav -- */
+/* --------- */
+#nav{
+	float:right;
+	margin:25px -15px 0 0;
+}
+.menu{
+	padding:7px 6px 0 0;
+}
+.menu li{
+	margin:0 5px;
+	padding:0 0 8px;
+	float:left;
+	position:relative;
+}
+.menu a{
+	display:block;
+	padding: 8px 15px;
+	margin:0;
+	color:#555;
+	text-decoration:none;
+	font-size:20px;
+}
+.menu .current a, .menu li:hover > a{
+	color:#2684cd;
+}
+.menu ul li:hover a, .menu li:hover li a{
+	color:#555;
+}
+.menu ul a:hover{
+	background:#2684cd !important;
+	color:#fff !important;
+}
+.menu ul{
+	background:#eee;
+	display:none;
+	margin:0;
+	padding:0;
+	width:250px;
+	position:absolute;
+	top:35px;
+	left:20px;
+	border:solid 1px #ddd;
+}
+.menu li:hover > ul{
+	display:block;
+}
+.menu ul li{
+	float:none;
+	margin:0;
+	padding:0;
+}
+.menu ul a{
+	font-size:16px;
+}
+.menu ul ul{
+	left:250px;
+	top:-3px;
+}
+.menu li.current_page_item a{
+	color:#2684cd;
+}
+.menu .sub-menu li.current_page_item a{
+	color:#2684cd;
+}
+
+/* ---------------- */
+/* -- Front Page -- */
+/* ---------------- */
+#frontpage-main{
+	float:left;
+	margin:115px 0 50px 0;
+	background-color:#fff;
+}
+#frontpage-main h3{
+	margin-top:0;
+}
+#frontpage-content{
+	float:left;
+	width:379px;
+	padding:0 100px 0 0;
+	border-right:1px #ddd dotted;
+}
+#frontpage-content p{
+	font-size:16px;
+	line-height:24px;
+}
+
+/* ------------- */
+/* -- Content -- */
+/* ------------- */
+#main{
+	float:left;
+	margin:90px 0 50px 0;
+	width:100%;
+}
+#content{
+	float:left;
+	width:480px;
+	padding:0 165px 0 0;
+}
+/* ---------- */
+/* -- Page -- */
+/* ---------- */
+.page-headline{
+	font-size:36px;
+	margin:-5px 0 0 18%;
+}
+
+/* ------------ */
+/* -- Footer -- */
+/* ------------ */
+#footer{
+	float:left;
+	border-top:1px #ddd dotted;
+	margin:20px 0 0 0;
+	padding:15px 0 50px 0;
+	width:100%;
+}
+
+    .StyleSelectBox{
+    width:200px;
+    height:24px;
+    font:14px Arial, Tahoma, Helvetica, Verdana;
+    text-align:left;
+    background:#fff;
+	margin: 0 10px 0 0;
+    line-height:30px;
+    white-space:nowrap; /* запрещаем перенос */
+    /*padding:0 22px 0 12px; /* отступ справа с учетом стрелочки */
+	padding:0 22px 0 12px;
+    border:1;
+    zoom:1; /* для IE6 */}
+    #selectBoxInfo{
+    clear:left;
+    padding:30px;
+    font:16px "Tahoma";
+    color:red;
+}
+.1{
+	display: inline-flex;
+}
+.copyright{
+	text-align: center;
+}
