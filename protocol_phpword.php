@@ -60,8 +60,18 @@ while ($row0 = mysqli_fetch_array($query0))
 {
 $str0=$row0['address'];
 }
+$query777 = mysqli_query($cnn, "select date_start from Meeting where id_building=1 and id_meeting=$meet_id");
+while ($row777 = mysqli_fetch_array($query777))
+{
+$str777=$row777[0];
+}
+$query778 = mysqli_query($cnn, "select date_end from Meeting where id_building=1 and id_meeting=$meet_id");
+while ($row778 = mysqli_fetch_array($query778))
+{
+$str778=$row778[0];
+}
 $section->addText(
-    "       Общее собрание собственников помещений в многоквартирном доме по адресу: ".$str0.", проводилось в период с «___» ______________ 20___г. по «___» _____________ 20__г. путем заочного голосования в порядке, предусмотренном ст. 47 Жилищного кодекса Российской Федерации. Оформленные в письменной форме решения собственников помещений в многоквартирном доме передавались по адресу: ".$str0."",
+    "       Общее собрание собственников помещений в многоквартирном доме по адресу: ".$str0.", проводилось в период с ".$str777." по ".$str778." путем заочного голосования в порядке, предусмотренном ст. 47 Жилищного кодекса Российской Федерации. Оформленные в письменной форме решения собственников помещений в многоквартирном доме передавались по адресу: ".$str0."",
     $fontStyleName
 );
 $section->addText("\r\n");
@@ -193,6 +203,21 @@ $res = mysqli_query($cnn, "select round(100*sum(share_numerator*area_rosreestr/s
 (select sum((p.area_rosreestr*r.share_numerator)/r.share_denominator) 
       from Question as q, Answer as a, Property_rights as r, Premise as p
             where q.id_meeting = $meet_id and q.id_question = a.id_question
+        and r.id_owner = a.id_owner and r.id_premise = p.id_premise  and q.sequence_no =$r),0)
+from Answer,Owner,Property_rights, Premise, Building, Question
+where Owner.id_owner=Answer.id_owner and
+Owner.id_owner=Property_rights.id_owner and
+Property_rights.id_premise=Premise.id_premise and
+Premise.id_building=Building.id_building and
+Answer.id_question=Question.id_question and
+Building.id_building=1 and
+Question.id_Meeting= $meet_id and
+id_answer_type=1 and
+Question.sequence_no=$r");
+$ress = mysqli_query($cnn, "select round(100*sum(share_numerator*area_rosreestr/share_denominator)/
+(select sum((p.area_rosreestr*r.share_numerator)/r.share_denominator) 
+      from Question as q, Answer as a, Property_rights as r, Premise as p
+            where q.id_meeting = $meet_id and q.id_question = a.id_question
         and r.id_owner = a.id_owner and r.id_premise = p.id_premise  and q.sequence_no =$r),2)
 from Answer,Owner,Property_rights, Premise, Building, Question
 where Owner.id_owner=Answer.id_owner and
@@ -205,6 +230,21 @@ Question.id_Meeting= $meet_id and
 id_answer_type=1 and
 Question.sequence_no=$r");
 $res2 = mysqli_query($cnn, "select round(100*sum(share_numerator*area_rosreestr/share_denominator)/
+(select sum((p.area_rosreestr*r.share_numerator)/r.share_denominator) 
+      from Question as q, Answer as a, Property_rights as r, Premise as p
+            where q.id_meeting = $meet_id and q.id_question = a.id_question
+        and r.id_owner = a.id_owner and r.id_premise = p.id_premise  and q.sequence_no =$r),0)
+from Answer,Owner,Property_rights, Premise, Building, Question
+where Owner.id_owner=Answer.id_owner and
+Owner.id_owner=Property_rights.id_owner and
+Property_rights.id_premise=Premise.id_premise and
+Premise.id_building=Building.id_building and
+Answer.id_question=Question.id_question and
+Building.id_building=1 and
+Question.id_Meeting= $meet_id and
+id_answer_type=2 and
+Question.sequence_no=$r");
+$ress2 = mysqli_query($cnn, "select round(100*sum(share_numerator*area_rosreestr/share_denominator)/
 (select sum((p.area_rosreestr*r.share_numerator)/r.share_denominator) 
       from Question as q, Answer as a, Property_rights as r, Premise as p
             where q.id_meeting = $meet_id and q.id_question = a.id_question
@@ -223,6 +263,21 @@ $res3 = mysqli_query($cnn, "select round(100*sum(share_numerator*area_rosreestr/
 (select sum((p.area_rosreestr*r.share_numerator)/r.share_denominator) 
       from Question as q, Answer as a, Property_rights as r, Premise as p
             where q.id_meeting = $meet_id and q.id_question = a.id_question
+        and r.id_owner = a.id_owner and r.id_premise = p.id_premise  and q.sequence_no =$r),0)
+from Answer,Owner,Property_rights, Premise, Building, Question
+where Owner.id_owner=Answer.id_owner and
+Owner.id_owner=Property_rights.id_owner and
+Property_rights.id_premise=Premise.id_premise and
+Premise.id_building=Building.id_building and
+Answer.id_question=Question.id_question and
+Building.id_building=1 and
+Question.id_Meeting= $meet_id and
+id_answer_type=3 and
+Question.sequence_no=$r");
+$ress3 = mysqli_query($cnn, "select round(100*sum(share_numerator*area_rosreestr/share_denominator)/
+(select sum((p.area_rosreestr*r.share_numerator)/r.share_denominator) 
+      from Question as q, Answer as a, Property_rights as r, Premise as p
+            where q.id_meeting = $meet_id and q.id_question = a.id_question
         and r.id_owner = a.id_owner and r.id_premise = p.id_premise  and q.sequence_no =$r),2)
 from Answer,Owner,Property_rights, Premise, Building, Question
 where Owner.id_owner=Answer.id_owner and
@@ -236,11 +291,20 @@ id_answer_type=3 and
 Question.sequence_no=$r");
 
 while ($row3 = mysqli_fetch_array($res)){
+while ($row33 = mysqli_fetch_array($ress)){
 while ($row4 = mysqli_fetch_array($res2)){
-while ($row5 = mysqli_fetch_array($res3)){	
-$section->addText('"за" '.$row3[0].'; "против" '.$row4[0].'; "воздержался" '.$row5[0].'',
+while ($row44 = mysqli_fetch_array($ress2)){
+while ($row5 = mysqli_fetch_array($res3)){
+while ($row55 = mysqli_fetch_array($ress3)){
+$newres=(round($row33[0]-floor($row33[0]),2))*100;
+$newres2=(round($row44[0]-floor($row44[0]),2))*100;
+$newres3=(round($row55[0]-floor($row55[0]),2))*100;
+$section->addText('"за" '.$row3[0].','.$newres.'%; "против" '.$row4[0].','.$newres2.'%; "воздержался" '.$row5[0].','.$newres3.'%',
 array('name' => 'Times New Roman', 'size' => 12, 'color' => '1B2232', 'bold' => true)
 );
+}
+}
+}
 }
 }
 }

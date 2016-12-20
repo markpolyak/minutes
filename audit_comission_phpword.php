@@ -56,6 +56,16 @@ $section->addText(
      array('name' => 'Times New Roman', 'size' => 14, 'color' => '1B2232'),
 	 "center");
 }
+$query777 = mysqli_query($cnn, "select date_start from Meeting where id_building=1 and id_meeting=$meet_id");
+while ($row777 = mysqli_fetch_array($query777))
+{
+$str777=$row777[0];
+}
+$query778 = mysqli_query($cnn, "select date_end from Meeting where id_building=1 and id_meeting=$meet_id");
+while ($row778 = mysqli_fetch_array($query778))
+{
+$str778=$row778[0];
+}
 $section->addText("\r\n");
 $section->addText(
     "\tпроведенного в форме заочного голосования",
@@ -63,7 +73,7 @@ $section->addText(
 	 "center"
 );
 $section->addText(
-    "\tв период с «___»____________ 20___г. по «___»____________ 20___г.",
+    "\tв период с ".$str777." по ".$str778."",
      array('name' => 'Times New Roman', 'size' => 12, 'color' => '1B2232'),
 	 "center"
 );
@@ -75,7 +85,7 @@ $section->addText(
 $section->addText("\r\n");
 $section->addText("\r\n");
 $section->addText(
-    "       Настоящее заключение составлено членами счетной комиссии общего собрания собственников помещений в многоквартирном доме, проведенного в форме заочного голосования в период с «___»____________ 20___г. по «___»____________ 20___г.",
+    "       Настоящее заключение составлено членами счетной комиссии общего собрания собственников помещений в многоквартирном доме, проведенного в форме заочного голосования в период с ".$str777." по ".$str778."",
     $fontStyleName
 );
 $query2 = mysqli_query($cnn, "select round(sum(area_rosreestr),2) from Premise");
@@ -149,7 +159,7 @@ $section->addText(
 /*$section->addText(''.$row1['question'].'. Здесь будет вопрос'
 );*/
 //echo $row1['question'];
-$res = mysqli_query($cnn, "select round(sum(share_numerator*area_rosreestr/share_denominator),2)
+$res = mysqli_query($cnn, "select round(sum(share_numerator*area_rosreestr/share_denominator),0)
 from Answer,Owner,Property_rights, Premise, Building, Question
 where Owner.id_owner=Answer.id_owner and
 Owner.id_owner=Property_rights.id_owner and
@@ -160,7 +170,18 @@ Building.id_building=1 and
 Question.id_Meeting= $meet_id and
 id_answer_type=1 and
 Question.sequence_no=$r");
-$res2 = mysqli_query($cnn, "select round(sum(share_numerator*area_rosreestr/share_denominator),2)
+$ress = mysqli_query($cnn, "select round(sum(share_numerator*area_rosreestr/share_denominator),2)
+from Answer,Owner,Property_rights, Premise, Building, Question
+where Owner.id_owner=Answer.id_owner and
+Owner.id_owner=Property_rights.id_owner and
+Property_rights.id_premise=Premise.id_premise and
+Premise.id_building=Building.id_building and
+Answer.id_question=Question.id_question and
+Building.id_building=1 and
+Question.id_Meeting= $meet_id and
+id_answer_type=1 and
+Question.sequence_no=$r");
+$res2 = mysqli_query($cnn, "select round(sum(share_numerator*area_rosreestr/share_denominator),0)
 from Answer,Owner,Property_rights, Premise, Building, Question
 where Owner.id_owner=Answer.id_owner and
 Owner.id_owner=Property_rights.id_owner and
@@ -171,7 +192,29 @@ Building.id_building=1 and
 Question.id_Meeting= $meet_id and
 id_answer_type=2 and
 Question.sequence_no=$r");
-$res3 = mysqli_query($cnn, "select round(sum( share_numerator*area_rosreestr/share_denominator),2)
+$ress2 = mysqli_query($cnn, "select round(sum(share_numerator*area_rosreestr/share_denominator),2)
+from Answer,Owner,Property_rights, Premise, Building, Question
+where Owner.id_owner=Answer.id_owner and
+Owner.id_owner=Property_rights.id_owner and
+Property_rights.id_premise=Premise.id_premise and
+Premise.id_building=Building.id_building and
+Answer.id_question=Question.id_question and
+Building.id_building=1 and
+Question.id_Meeting= $meet_id and
+id_answer_type=2 and
+Question.sequence_no=$r");
+$res3 = mysqli_query($cnn, "select round(sum( share_numerator*area_rosreestr/share_denominator),0)
+from Answer,Owner,Property_rights, Premise, Building, Question
+where Owner.id_owner=Answer.id_owner and
+Owner.id_owner=Property_rights.id_owner and
+Property_rights.id_premise=Premise.id_premise and
+Premise.id_building=Building.id_building and
+Answer.id_question=Question.id_question and
+Building.id_building=1 and
+Question.id_Meeting= $meet_id and
+id_answer_type=3 and
+Question.sequence_no=$r");
+$ress3 = mysqli_query($cnn, "select round(sum( share_numerator*area_rosreestr/share_denominator),2)
 from Answer,Owner,Property_rights, Premise, Building, Question
 where Owner.id_owner=Answer.id_owner and
 Owner.id_owner=Property_rights.id_owner and
@@ -183,14 +226,23 @@ Question.id_Meeting= $meet_id and
 id_answer_type=3 and
 Question.sequence_no=$r");
 while ($row3 = mysqli_fetch_array($res)){
+while ($row33 = mysqli_fetch_array($ress)){
 while ($row4 = mysqli_fetch_array($res2)){
-while ($row5 = mysqli_fetch_array($res3)){	
-$newstr3=$row3[0];
+while ($row44 = mysqli_fetch_array($ress2)){
+while ($row5 = mysqli_fetch_array($res3)){
+while ($row55 = mysqli_fetch_array($ress3)){
+$newres=(round($row33[0]-floor($row33[0]),2))*100;
+$newres2=(round($row44[0]-floor($row44[0]),2))*100;
+$newres3=(round($row55[0]-floor($row55[0]),2))*100;
+/*$newstr3=$row3[0];
 $newstr4=$row4[0];
-$newstr5=$row5[0];
-$section->addText('"за" '.$row3[0].'; "Против" '.$row4[0].'; "Воздержался" '.$row5[0].'',
+$newstr5=$row5[0];*/
+$section->addText('"за" '.$row3[0].','.$newres.'; "Против" '.$row4[0].','.$newres2.'; "Воздержался" '.$row5[0].','.$newres3.'',
 array('name' => 'Times New Roman', 'size' => 12, 'color' => '1B2232', 'bold' => true)
 );
+}
+}
+}
 }
 }
 }
